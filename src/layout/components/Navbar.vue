@@ -1,62 +1,46 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
-    <breadcrumb class="breadcrumb-container" />
-
+    <!-- 左侧 -->
+    <div class="logo">
+      <img src="../../assets/logo2.png" />
+    </div>
+    <!-- 右侧 -->
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+      <img src="../../assets/headimg.png" />
+      <span class="username">欢迎您，admin</span>
+      <el-dropdown class="avatar-container" >
+        <div class="avatar-wrapper" @click="logout">
+          <span>退出</span>
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
       </el-dropdown>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
+import { mapGetters } from "vuex";
+import Breadcrumb from "@/components/Breadcrumb";
+import Hamburger from "@/components/Hamburger";
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ])
+    ...mapGetters(["sidebar", "avatar"]),
+  },
+  created() {
+    this.$store.dispatch("app/toggleSideBar");
   },
   methods: {
-    toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
-    },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-    }
-  }
-}
+      this.$router.push('/login');
+      await this.$store.dispatch("user/logout");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -64,74 +48,50 @@ export default {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  top: 0;
+  left: 0;
+  background: url("../../assets/headbg.png") no-repeat;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
-  .hamburger-container {
-    line-height: 46px;
-    height: 100%;
+  .logo {
     float: left;
-    cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, .025)
+    width: 88px;
+    height: 36px;
+    position: relative;
+    left: 20px;
+    top: 7px;
+    img {
+      width: 100%;
     }
-  }
-
-  .breadcrumb-container {
-    float: left;
   }
 
   .right-menu {
     float: right;
     height: 100%;
     line-height: 50px;
-
-    &:focus {
-      outline: none;
+    img {
+      position: relative;
+      top: 8px;
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
     }
-
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
-        cursor: pointer;
-        transition: background .3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, .025)
-        }
-      }
+    .username {
+      font-size: 16px;
+      color: #fff;
+      margin-right: 20px;
     }
-
     .avatar-container {
       margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
+      color: #fff;
+      cursor: pointer;
+      span {
+        font-size: 16px;
+      }
+      .el-icon-caret-bottom {
+        position: absolute;
+        top: 20px;
+        font-size: 12px;
       }
     }
   }
