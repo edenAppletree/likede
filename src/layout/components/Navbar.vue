@@ -6,8 +6,8 @@
     </div>
     <!-- 右侧 -->
     <div class="right-menu">
-      <img src="../../assets/headimg.png" />
-      <span class="username">欢迎您，admin</span>
+      <img :src="$store.state.user.userInfo.image" />
+      <span class="username">欢迎您，{{$store.state.user.userInfo.loginName}}</span>
       <el-dropdown class="avatar-container" >
         <div class="avatar-wrapper" @click="logout">
           <span>退出</span>
@@ -51,6 +51,7 @@ export default {
   top: 0;
   left: 0;
   background: url("../../assets/headbg.png") no-repeat;
+  background-size: cover;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .logo {

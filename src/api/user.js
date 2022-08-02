@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from "@/utils/request";
 
 // 图片验证码
 export const getImageCode = (clientToken) => {
@@ -11,7 +11,7 @@ export const getImageCode = (clientToken) => {
 /**
  * 发送登录请求
  * @param {String} data loginName
- * @returns 
+ * @returns
  */
 export function login(data) {
   return request({
@@ -24,3 +24,9 @@ export function login(data) {
   });
 }
 
+// 获取用户基本信息
+export const getUserInfo = (id) => {
+  return request({
+    url: `/api/user-service/user/${id}`,
+  });
+};

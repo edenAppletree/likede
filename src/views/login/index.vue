@@ -47,7 +47,7 @@
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="login">登录</el-button>
+            <el-button @click="login" :loading="isLogin">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -56,7 +56,8 @@
 </template>
 
 <script>
-import { getImageCode, login } from "@/api/user";
+import { getImageCode, login ,getUserInfo} from "@/api/user";
+// import { Message } from "element-ui";
 export default {
   data() {
     return {
@@ -84,6 +85,7 @@ export default {
           },
         ],
       },
+      isLogin: false,
     };
   },
   created() {
@@ -107,7 +109,7 @@ export default {
         this.loginForm.clientToken = Math.floor(Math.random() * 100);
         const res = await getImageCode(this.loginForm.clientToken);
         this.imageCodeUrl = URL.createObjectURL(res.data);
-        console.log(res);
+        // console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -118,13 +120,23 @@ export default {
     },
     // 点击登录
     async login() {
-      const {
-        data: { token },
-      } = await login(this.loginForm);
-      // 保存token
-      this.$store.dispatch("user/getToken", token);
-      // 路由跳转页面
-      this.$router.push("/");
+      try {
+        this.isLogin = true;
+        // 先判断
+        await this.$refs.loginForm.validate();
+        const { data } = await login(this.loginForm);
+        // 保存token
+        await this.$store.dispatch("user/getToken", data.token);
+        // 路由跳转页面
+        this.$router.push("/");
+        this.$message.success("登录成功");
+        // 获取用户基本信息
+        const userInfo = await getUserInfo(data.userId)
+        // console.log(userInfo);
+        this.$store.dispatch('user/getUserInfo',userInfo.data)
+      } finally {
+        this.isLogin = false;
+      }
     },
   },
 };
