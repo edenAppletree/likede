@@ -1,3 +1,4 @@
+import { setTokenTime } from "@/utils/auth";
 
 export default {
   namespaced: true,
@@ -17,6 +18,7 @@ export default {
     getToken(context, payload) {
       console.log(payload);
       context.commit("setToken", payload);
+      setTokenTime()
     },
     logout(context) {
       context.commit("setToken", "");

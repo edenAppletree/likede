@@ -6,7 +6,7 @@
     </div>
     <!-- 右侧 -->
     <div class="right-menu">
-      <img :src="$store.state.user.userInfo.image" />
+      <img :src="$store.state.user.userInfo.image" v-imgError='defaultImg' />
       <span class="username">欢迎您，{{$store.state.user.userInfo.loginName}}</span>
       <el-dropdown class="avatar-container" >
         <div class="avatar-wrapper" @click="logout">
@@ -24,6 +24,11 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 
 export default {
+  data() {
+    return {
+      defaultImg:'https://img2.baidu.com/it/u=1880320954,1568482765&fm=253&fmt=auto&app=138&f=JPEG?w=542&h=500'
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger,

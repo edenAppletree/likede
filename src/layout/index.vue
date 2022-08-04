@@ -59,7 +59,7 @@ export default {
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: pink;
+  // background-color: pink;
 }
  #app .sidebar-container ::v-deep {
   top: 50px;
