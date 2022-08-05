@@ -34,11 +34,7 @@ export default {
     },
   },
 
-  methods: {
-    handleClickOutside() {
-      this.$store.dispatch("app/closeSideBar", { withoutAnimation: false });
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -57,7 +53,7 @@ export default {
   position: relative;
   top: 50px;
   display: flex;
-  width: 100%;
+  width: calc(100vh-56px);
   height: 100%;
   // background-color: pink;
 }

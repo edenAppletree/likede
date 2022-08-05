@@ -15,7 +15,7 @@ service.interceptors.request.use(
   async (config) => {
     const tokenTime = getTokenTime()
     const currentTime = Date.now()
-    const timeout = 5* 1000
+    const timeout = 2*60*60* 1000
     if (store.state.user.token) {
       if (currentTime - tokenTime > timeout) {
         await store.dispatch('user/logout')

@@ -54,12 +54,12 @@ export default {
   height: 100%;
   background-color: #fff;
 }
-#app .sidebar-container ::v-deep.submenu-title-noDropdown:hover,
-#app .sidebar-container ::v-deep.el-submenu__title:hover {
-  background-color: #fff !important;
-}
-#app .sidebar-container ::v-deep.nest-menu .el-submenu > .el-submenu__title,
-#app .sidebar-container ::v-deep.el-submenu .el-menu-item {
-  background-color: #fff !important;
-}
+// #app .sidebar-container ::v-deep.submenu-title-noDropdown:hover,
+// #app .sidebar-container ::v-deep.el-submenu__title:hover {
+//   background-color: #fff !important;
+// }
+// #app .sidebar-container ::v-deep.nest-menu .el-submenu > .el-submenu__title,
+// #app .sidebar-container ::v-deep.el-submenu .el-menu-item {
+//   background-color: #fff !important;
+// }
 </style>
